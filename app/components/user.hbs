@@ -1,0 +1,15 @@
+<div class="column">
+
+<LinkTo @route="users.user" @model={{@user}}>
+    <div class="user-select is-220px">
+    <img
+        class="is-pulled-left"
+        src={{@user.image}}
+        width="60px"
+        alt="profile-image"
+    />
+    <p>{{@user.name}}</p>
+    </div>
+</LinkTo>
+
+</div>
