@@ -3,14 +3,15 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class UsersComponent extends Component {
-    @tracked query = false;
-    @action toggleShow(value) {
-        this.query = value;
+    @tracked checked = false;
+    @action toggleShow(e) {
+        this.checked = e.target.checked;
+        console.log(e.target.checked);
     }
 
     get results() {
         const model = this.args.model;
-        if (this.query) return model;
+        if (this.checked) return model;
         return model.filter((user) => !user.archived);
     }
 }

@@ -1,6 +1,6 @@
 {{page-title 'User'}}
 <div class="container">
-  <input type="checkbox" checked={{this.query}} onchange={{action "toggleShow" value="target.checked"}}>
+  <input type="checkbox" id="show" name="show" {{on "input" this.toggleShow}} />
   <label for="show"> All</label><br>
   <div class="columns is-centered">
 
