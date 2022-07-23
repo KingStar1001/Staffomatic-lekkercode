@@ -1,0 +1,12 @@
+{{page-title 'User'}}
+<div class="container">
+  <input type="checkbox" checked={{this.query}} onchange={{action "toggleShow" value="target.checked"}}>
+  <label for="show"> All</label><br>
+  <div class="columns is-centered">
+
+    {{#each this.results as |user|}}
+      <User @user={{user}} />
+    {{/each}}
+
+  </div>
+</div>
