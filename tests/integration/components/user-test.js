@@ -4,23 +4,22 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | user', function(hooks) {
-  setupRenderingTest(hooks);
+    setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    test('it renders', async function(assert) {
+        // Set any properties with this.set('myProperty', 'value');
+        // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<User />`);
+        this.setProperties({
+            user: {
+                name: "Albert Einstein",
+                image: "/images/Einstein.jpg"
+            }
+        })
 
-    assert.equal(this.element.textContent.trim(), '');
+        await render(hbs `<User @user={{this.user}} />`);
 
-    // Template block usage:
-    await render(hbs`
-      <User>
-        template block text
-      </User>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
+        assert.dom('p').hasText('Albert Einstein');
+        assert.dom('img').exists();
+    });
 });

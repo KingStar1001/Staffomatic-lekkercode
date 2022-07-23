@@ -1,26 +1,35 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click, currentURL } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | user/detailed', function(hooks) {
-  setupRenderingTest(hooks);
+    setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    test('it renders', async function(assert) {
+        // Set any properties with this.set('myProperty', 'value');
+        // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<User::Detailed />`);
+        this.setProperties({
+            user: {
+                name: "Albert Einstein",
+                image: "/images/Einstein.jpg",
+                value: false,
+                archived: false
+            }
+        })
 
-    assert.equal(this.element.textContent.trim(), '');
+        await render(hbs `<User::Detailed @model={{this.user}} />`);
 
-    // Template block usage:
-    await render(hbs`
-      <User::Detailed>
-        template block text
-      </User::Detailed>
-    `);
+        assert.dom('.container').exists();
+        assert.dom('#back_button').exists();
+        assert.dom('#archive_button').exists();
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
+        assert.dom('.title').hasText('Albert Einstein');
+        assert.dom('.subtitle').hasText('Example Value: false');
+        assert.dom('.user-unarchived').exists();
+
+        await click('#back_button');
+        assert.strictEqual(currentURL(), '/users');
+    });
 });

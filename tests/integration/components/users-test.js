@@ -4,23 +4,56 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | users', function(hooks) {
-  setupRenderingTest(hooks);
+    setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    test('it renders', async function(assert) {
+        // Set any properties with this.set('myProperty', 'value');
+        // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<Users />`);
+        this.setProperties({
+            users: [{
+                    "id": "1",
+                    "type": "user",
+                    "attributes": {
+                        "name": "Albert Einstein",
+                        "image": "/images/Einstein.jpg",
+                        "value": "false"
+                    }
+                },
+                {
+                    "id": "2",
+                    "type": "user",
+                    "attributes": {
+                        "name": "Walt Disney",
+                        "image": "/images/Walt.jpg",
+                        "value": "false"
+                    }
+                },
+                {
+                    "id": "3",
+                    "type": "user",
+                    "attributes": {
+                        "name": "Bruce Lee",
+                        "image": "/images/Bruce.jpg",
+                        "value": "false"
+                    }
+                },
+                {
+                    "id": "4",
+                    "type": "user",
+                    "attributes": {
+                        "name": "Neil Armstrong",
+                        "image": "/images/Neil.jpg",
+                        "value": "false"
+                    }
+                }
+            ]
+        })
 
-    assert.equal(this.element.textContent.trim(), '');
+        await render(hbs `<Users @model={{this.users}} />`);
 
-    // Template block usage:
-    await render(hbs`
-      <Users>
-        template block text
-      </Users>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
+        assert.dom('input').exists();
+        assert.dom('.columns').exists();
+        assert.dom('.columns .column').exists({ count: 4 });
+    });
 });
