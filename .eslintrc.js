@@ -14,7 +14,6 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:ember/recommended',
-        'plugin:prettier/recommended',
     ],
     env: {
         browser: true,
@@ -49,6 +48,5 @@ module.exports = {
                 'node/no-unpublished-require': 'off',
             },
         },
-    ],
-    "prettier/prettier": ["error", { "endOfLine": "off" }]
+    ]
 };
